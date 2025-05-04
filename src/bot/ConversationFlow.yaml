@@ -1,0 +1,191 @@
+# ==============================================
+# ENPChatBot – Kịch bản 5 lượt hỏi & CBT exercises
+# ==============================================
+
+# 1. Bắt đầu
+START:
+  bot:
+    - "Chào bạn! Mình là ENPChatBot – sẵn sàng lắng nghe và đồng hành cùng bạn."
+    - "Xin chào! Mình ở đây để trò chuyện và hỗ trợ tâm lý cho bạn. Bạn có muốn chia sẻ cảm xúc hôm nay không?"
+    - "👋 Hi! ENPChatBot đây. Bạn có muốn nói một chút về những gì bạn đang trải qua không?"
+  user_expect:
+    - "Có, mình muốn chia sẻ."
+    - "OK, bắt đầu thôi."
+    - "Không, cảm ơn."
+    - "Mình hơi ngại nhưng cũng muốn thử."
+  transitions:
+    agree: ASK_FEEL_1
+    decline: END
+    any: ASK_FEEL_1     
+
+# 2. Lượt 1: Hỏi chung về cảm xúc
+ASK_FEEL_1:
+  bot:
+    - "Hôm nay bạn đang cảm thấy thế nào?"
+    - "Cho mình biết cảm xúc chính của bạn lúc này là gì nhé."
+    - "Cảm xúc hiện tại của bạn là gì? Vui, buồn, lo lắng hay thế nào?"
+    - "Nếu bạn dùng 1–2 từ để mô tả tâm trạng, bạn sẽ chọn gì?"
+  user_expect:
+    - "Mình hơi buồn."
+    - "Mình thấy lo lắng."
+    - "Mình cảm thấy bình thường."
+    - "Mình vui vẻ."
+    - "Mình khá căng thẳng."
+  transitions:
+    any: ASK_DETAIL_2
+
+# 3. Lượt 2: Hỏi về nguyên nhân/hoàn cảnh
+ASK_DETAIL_2:
+  bot:
+    - "Bạn có thể mô tả ngắn gọn điều gì đã xảy ra để bạn cảm thấy như vậy không?"
+    - "Điều gì trong hôm nay làm bạn có cảm giác đó?"
+    - "Có sự kiện cụ thể nào dẫn đến cảm xúc này không?"
+    - "Bạn nghĩ nguyên nhân sâu xa của tâm trạng này là gì?"
+  user_expect:
+    - "Mình có buổi họp căng thẳng."
+    - "Mình vừa gặp tin vui."
+    - "Chuyện gia đình làm mình lo lắng."
+    - "Mình bị áp lực deadline."
+    - "Mình không rõ tại sao."
+  transitions:
+    any: ASK_COPING_3
+
+# 4. Lượt 3: Hỏi về cách đã cố gắng đối phó
+ASK_COPING_3:
+  bot:
+    - "Trước giờ bạn thường làm gì để giải tỏa cảm xúc này?"
+    - "Bạn đã thử cách nào để cảm thấy dễ chịu hơn chưa?"
+    - "Bạn đã từng áp dụng biện pháp nào (như nghe nhạc, vận động) không?"
+    - "Cách bạn thường làm khi gặp tâm trạng này là gì?"
+  user_expect:
+    - "Mình nghe nhạc."
+    - "Mình hay đi dạo."
+    - "Chưa, mình không biết phải làm gì."
+    - "Mình nói chuyện với bạn bè."
+    - "Mình xem phim để quên."
+  transitions:
+    any: ASK_COMFORT_4
+
+# 5. Lượt 4: Hỏi mong muốn hỗ trợ
+ASK_COMFORT_4:
+  bot:
+    - "Bạn hy vọng mình giúp được điều gì cho bạn ngay lúc này?"
+    - "Bạn muốn mình chia sẻ lời khuyên, bài tập hay chỉ đơn giản lắng nghe?"
+    - "Bạn cần mình giải thích thêm về CBT hay gợi ý ngay một bài tập?"
+    - "Bạn thích nghe lời khuyên ngắn gọn hay chi tiết hơn?"
+  user_expect:
+    - "Mình muốn lời khuyên cụ thể."
+    - "Chỉ cần lắng nghe."
+    - "Mình muốn tập kỹ thuật thở."
+    - "Cho xin vài gợi ý thực tế."
+    - "Mình cần động lực thôi."
+  transitions:
+    any: ASK_READINESS_5
+
+# 6. Lượt 5: Kiểm tra sẵn sàng
+ASK_READINESS_5:
+  bot:
+    - "Nếu bạn sẵn sàng, mình có thể gợi ý một bài tập CBT nhỏ – bạn thấy sao?"
+    - "Bạn có muốn thử một bài tập luyện tâm lý ngắn để cảm thấy khá hơn không?"
+    - "Bạn nghĩ sao nếu mình gửi cho bạn một bài tập ngắn, mất 5–10 phút thôi?"
+    - "Bạn có thể dành vài phút để thử một bài tập chăm sóc tâm lý?"
+  user_expect:
+    - "Có, mình sẵn sàng."
+    - "OK, cho mình thử."
+    - "Chưa, để mình suy nghĩ."
+    - "Mình cố gắng nhé."
+  transitions:
+    agree: PROVIDE_EXERCISE
+    decline: END
+    any: PROVIDE_EXERCISE   
+
+# 7. Gợi ý bài tập CBT theo cảm xúc
+PROVIDE_EXERCISE:
+  bot:
+    - |
+      Dựa trên những chia sẻ của bạn, mình gợi ý bài tập CBT như sau:  
+      {exercise_text}  
+    - |
+      Mình đề xuất bạn thử bài tập sau (theo CBT):  
+      {exercise_text}  
+  user_expect:
+    - "Cảm ơn, mình làm theo được rồi."
+  transitions:
+    any: FOLLOW_UP
+
+# 7a. Chi tiết exercise cho mỗi cảm xúc
+EXERCISE_Vui_vẻ:
+  exercise_text: |
+    **Bài tập Savoring (Thưởng thức khoảnh khắc tốt):**  
+    1. Chọn một khoảnh khắc vui gần đây (ít hơn 24h).  
+    2. Ngồi yên 2–3 phút, nhắm mắt, tập trung vào cảm giác.  
+    3. Ghi lại chi tiết: môi trường, âm thanh, cảm xúc cơ thể.  
+    4. Viết 5 câu mô tả trải nghiệm.  
+    5. Đọc to to, hít thở sâu và cảm nhận lòng biết ơn.  
+  transitions:
+    any: FOLLOW_UP
+
+EXERCISE_Buồn_bã:
+  exercise_text: |
+    **Bài tập Behavioral Activation (Hoạt động hành vi):**  
+    1. Viết danh sách 5 hoạt động làm bạn thấy dễ chịu.  
+    2. Chọn 1 hoạt động dễ thực hiện trong 15 phút.  
+    3. Thực hiện và quan sát cảm xúc trước/sau.  
+    4. Ghi nhật ký: hôm nay bạn cảm thấy thế nào?  
+    5. Lên kế hoạch cho ngày mai: thêm 1 hoạt động nữa.  
+  transitions:
+    any: FOLLOW_UP
+
+EXERCISE_Tức_giận:
+  exercise_text: |
+    **Bài tập Cognitive Restructuring (Đánh giá lại suy nghĩ):**  
+    1. Ghi lại tình huống khiến bạn tức giận.  
+    2. Viết suy nghĩ đầu tiên xuất hiện.  
+    3. Tìm 2 bằng chứng ủng hộ & 2 bằng chứng phản bác.  
+    4. Đưa ra suy nghĩ thay thế cân bằng hơn.  
+    5. Đọc to suy nghĩ mới, thư giãn với vài hơi thở sâu.  
+  transitions:
+    any: FOLLOW_UP
+
+EXERCISE_Lo_lắng:
+  exercise_text: |
+    **Bài tập Worry Time (Thời gian lo lắng có giới hạn):**  
+    1. Đặt “worry time” 10 phút (ví dụ 7–7:10pm).  
+    2. Ghi mọi lo lắng vào sổ, đánh dấu “lo sau”.  
+    3. Khi đến giờ, đọc từng mục, tự hỏi “nỗi lo này có thực sự nguy hiểm không?”.  
+    4. Viết giải pháp khả thi (ít nhất 1).  
+    5. Kết thúc worry time, chuyển sang hoạt động khác.  
+  transitions:
+    any: FOLLOW_UP
+
+EXERCISE_Trung_lập:
+  exercise_text: |
+    **Bài tập Gratitude Journal (Nhật ký biết ơn):**  
+    1. Viết 3 điều bạn biết ơn hôm nay.  
+    2. Với mỗi điều, ghi 1–2 câu lý do.  
+    3. Nhắm mắt, hít thở sâu, tưởng tượng điều đó.  
+    4. Đọc to cảm ơn cho chính mình.  
+    5. Kết thúc bằng câu affirm: “Mình biết ơn cuộc sống”.  
+  transitions:
+    any: FOLLOW_UP
+
+# 8. Theo dõi sau gợi ý
+FOLLOW_UP:
+  bot:
+    - "Bạn cảm thấy thế nào sau khi thử bài tập?"
+    - "Bài tập có giúp bạn giảm bớt cảm xúc tiêu cực không?"
+    - "Nếu bạn muốn thử thêm bài khác, mình sẵn sàng."
+  user_expect:
+    - "Mình thấy khá hơn."
+    - "Chưa rõ lắm."
+    - "Rất hữu ích."
+  transitions:
+    any: END
+
+# 9. Kết thúc
+END:
+  bot:
+    - "Cảm ơn bạn đã chia sẻ cùng mình. Chúc bạn một ngày vui vẻ 💛"
+    - "Mình luôn sẵn sàng lắng nghe khi bạn cần. Hẹn gặp lại!"
+  user_expect: []
+  transitions: {}
