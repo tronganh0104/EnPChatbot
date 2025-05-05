@@ -7,7 +7,7 @@ START:
   bot:
     - "Chào bạn! Mình là ENPChatBot – sẵn sàng lắng nghe và đồng hành cùng bạn."
     - "Xin chào! Mình ở đây để trò chuyện và hỗ trợ tâm lý cho bạn. Bạn có muốn chia sẻ cảm xúc hôm nay không?"
-    - "👋 Hi! ENPChatBot đây. Bạn có muốn nói một chút về những gì bạn đang trải qua không?"
+    - "Hi! ENPChatBot đây. Bạn có muốn nói một chút về những gì bạn đang trải qua không?"
   user_expect:
     - "Có, mình muốn chia sẻ."
     - "OK, bắt đầu thôi."
@@ -71,7 +71,7 @@ ASK_COMFORT_4:
   bot:
     - "Bạn hy vọng mình giúp được điều gì cho bạn ngay lúc này?"
     - "Bạn muốn mình chia sẻ lời khuyên, bài tập hay chỉ đơn giản lắng nghe?"
-    - "Bạn cần mình giải thích thêm về CBT hay gợi ý ngay một bài tập?"
+    - "Bạn cần gợi ý ngay một bài tập?"
     - "Bạn thích nghe lời khuyên ngắn gọn hay chi tiết hơn?"
   user_expect:
     - "Mình muốn lời khuyên cụ thể."
@@ -165,7 +165,7 @@ EXERCISE_Trung_lập:
     2. Với mỗi điều, ghi 1–2 câu lý do.  
     3. Nhắm mắt, hít thở sâu, tưởng tượng điều đó.  
     4. Đọc to cảm ơn cho chính mình.  
-    5. Kết thúc bằng câu affirm: “Mình biết ơn cuộc sống”.  
+    5. Kết thúc bằng câu : “Mình biết ơn cuộc sống”.  
   transitions:
     any: FOLLOW_UP
 
