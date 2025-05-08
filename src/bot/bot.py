@@ -112,7 +112,7 @@ def match_transition(trans: dict, user_text: str):
 def next_state(user_text: str, state: str, user_data: dict):
     cfg = DIALOGUE[state]["transitions"]
     choice = match_transition(cfg, user_text)
-    if state == "ASK_READINESS_5" and choice == "agree":
+    if state == "ASK_COPING_3" and choice == "any":
         return "PROVIDE_EXERCISE"
     return cfg.get(choice)
 
@@ -124,7 +124,6 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(q1)
     context.user_data.clear()
     context.user_data["state"] = "ASK_FEEL_1"
-    # Khởi tạo list để lưu (label, conf) 3 câu đầu
     context.user_data["responses"] = []
 
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -136,24 +135,20 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     logging.info(f"[CHAT {update.effective_chat.id}] STATE={state} | USER={user_text}")
 
-    # Với 3 lượt đầu tiên, predict và lưu vào responses
     if state in ["ASK_FEEL_1", "ASK_DETAIL_2", "ASK_COPING_3"]:
         label, conf = predict_label_and_confidence(user_text)
         context.user_data["responses"].append((label, conf))
-        # Khi đã đủ 3 responses, tính nhãn cuối
         if len(context.user_data["responses"]) == 3:
             final_label = weighted_majority(context.user_data["responses"])
             context.user_data["label"] = final_label
             logging.info(f"[CHAT {update.effective_chat.id}] FINAL LABEL={final_label}")
 
-    # Chuyển state tiếp theo
     nxt = next_state(user_text, state, context.user_data)
     if not nxt or nxt not in DIALOGUE:
         nxt = "END"
 
     logging.info(f"[CHAT {update.effective_chat.id}] → NEXT STATE={nxt}")
 
-    # Soạn reply
     if nxt == "PROVIDE_EXERCISE":
         tpl = random.choice(DIALOGUE[nxt]["bot"])
         label = context.user_data.get("label", "Trung_lập")

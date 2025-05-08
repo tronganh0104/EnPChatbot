@@ -1,5 +1,5 @@
 # ==============================================
-# ENPChatBot – Kịch bản 5 lượt hỏi & CBT exercises
+# ENPChatBot – Kịch bản rút gọn (3 lượt hỏi & CBT)
 # ==============================================
 
 # 1. Bắt đầu
@@ -50,7 +50,7 @@ ASK_DETAIL_2:
   transitions:
     any: ASK_COPING_3
 
-# 4. Lượt 3: Hỏi về cách đã cố gắng đối phó
+# 4. Lượt 3: Hỏi về cách đã đối phó
 ASK_COPING_3:
   bot:
     - "Trước giờ bạn thường làm gì để giải tỏa cảm xúc này?"
@@ -64,56 +64,21 @@ ASK_COPING_3:
     - "Mình nói chuyện với bạn bè."
     - "Mình xem phim để quên."
   transitions:
-    any: ASK_COMFORT_4
+    any: PROVIDE_EXERCISE
 
-# 5. Lượt 4: Hỏi mong muốn hỗ trợ
-ASK_COMFORT_4:
-  bot:
-    - "Bạn hy vọng mình giúp được điều gì cho bạn ngay lúc này?"
-    - "Bạn muốn mình chia sẻ lời khuyên, bài tập hay chỉ đơn giản lắng nghe?"
-    - "Bạn cần gợi ý ngay một bài tập?"
-    - "Bạn thích nghe lời khuyên ngắn gọn hay chi tiết hơn?"
-  user_expect:
-    - "Mình muốn lời khuyên cụ thể."
-    - "Chỉ cần lắng nghe."
-    - "Mình muốn tập kỹ thuật thở."
-    - "Cho xin vài gợi ý thực tế."
-    - "Mình cần động lực thôi."
-  transitions:
-    any: ASK_READINESS_5
-
-# 6. Lượt 5: Kiểm tra sẵn sàng
-ASK_READINESS_5:
-  bot:
-    - "Nếu bạn sẵn sàng, mình có thể gợi ý một bài tập CBT nhỏ – bạn thấy sao?"
-    - "Bạn có muốn thử một bài tập luyện tâm lý ngắn để cảm thấy khá hơn không?"
-    - "Bạn nghĩ sao nếu mình gửi cho bạn một bài tập ngắn, mất 5–10 phút thôi?"
-    - "Bạn có thể dành vài phút để thử một bài tập chăm sóc tâm lý?"
-  user_expect:
-    - "Có, mình sẵn sàng."
-    - "OK, cho mình thử."
-    - "Chưa, để mình suy nghĩ."
-    - "Mình cố gắng nhé."
-  transitions:
-    agree: PROVIDE_EXERCISE
-    decline: END
-    any: PROVIDE_EXERCISE   
-
-# 7. Gợi ý bài tập CBT theo cảm xúc
+# 5. Gợi ý bài tập CBT theo cảm xúc
 PROVIDE_EXERCISE:
   bot:
     - |
-      Dựa trên những chia sẻ của bạn, mình gợi ý bài tập CBT như sau:  
-      {exercise_text}  
-    - |
-      Mình đề xuất bạn thử bài tập sau (theo CBT):  
-      {exercise_text}  
+      Cảm ơn bạn đã chia sẻ.  
+      Dựa trên cảm xúc của bạn, mình có một bài tập nhỏ – bạn có thể thử nếu thấy phù hợp nhé:  
+      {exercise_text}
   user_expect:
     - "Cảm ơn, mình làm theo được rồi."
   transitions:
     any: FOLLOW_UP
 
-# 7a. Chi tiết exercise cho mỗi cảm xúc
+# 5a. Chi tiết bài tập theo từng cảm xúc
 EXERCISE_Vui_vẻ:
   exercise_text: |
     **Bài tập Savoring (Thưởng thức khoảnh khắc tốt):**  
@@ -165,11 +130,11 @@ EXERCISE_Trung_lập:
     2. Với mỗi điều, ghi 1–2 câu lý do.  
     3. Nhắm mắt, hít thở sâu, tưởng tượng điều đó.  
     4. Đọc to cảm ơn cho chính mình.  
-    5. Kết thúc bằng câu : “Mình biết ơn cuộc sống”.  
+    5. Kết thúc bằng câu: “Mình biết ơn cuộc sống”.  
   transitions:
     any: FOLLOW_UP
 
-# 8. Theo dõi sau gợi ý
+# 6. Theo dõi sau bài tập
 FOLLOW_UP:
   bot:
     - "Bạn cảm thấy thế nào sau khi thử bài tập?"
@@ -182,7 +147,7 @@ FOLLOW_UP:
   transitions:
     any: END
 
-# 9. Kết thúc
+# 7. Kết thúc
 END:
   bot:
     - "Cảm ơn bạn đã chia sẻ cùng mình. Chúc bạn một ngày vui vẻ 💛"
