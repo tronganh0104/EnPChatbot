@@ -1,0 +1,12 @@
+python-telegram-bot==20.3
+transformers==4.40.1
+torch>=1.13.0
+underthesea>=1.1.0
+pyvi>=0.1.1
+scikit-learn>=1.2.0
+pandas>=1.5.0
+numpy>=1.21.0
+pyyaml>=6.0
+tqdm>=4.64.0
+emoji>=2.0.0
+python-dotenv>=1.0.0
